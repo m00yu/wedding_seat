@@ -213,7 +213,7 @@ function planSvg(hl){
   let s = `<svg viewBox="0 0 697 560" preserveAspectRatio="xMidYMin meet" xmlns="http://www.w3.org/2000/svg">${PLAN}`;
   DATA.tables.forEach(t=>{
     const [x,y,w,h]=t.rect, f=TFILL[t.space];
-    s += `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="2" fill="${f[0]}" stroke="${f[1]}"/>`;
+    s += `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="3" fill="${f[0]}" stroke="${f[1]}" stroke-width="3.5"/>`;
   });
   if(hl){
     const t=T[hl], [x,y,w,h]=t.rect;
@@ -331,7 +331,7 @@ function renderResult(){
     <p class="zone"><span style="color:${sp.color}">${sp.label}</span>에<br>앉으시면 돼요</p>
     <div class="mapwrap">${planSvg(g.table)}</div>
     <div class="legend"><span><i style="background:var(--z1);border-color:#D8B3A4"></i>1번 신랑 가족석</span><span><i style="background:var(--z2);border-color:#9DB3BC"></i>2번 신부 가족석</span><span><i style="background:var(--z32);border-color:#A9C7A4"></i>3번 지인석</span></div>
-    <button class="tapnote" data-table="${g.table}"><span class="finger">☝</span><span><b>내 테이블을 눌러</b><br>자세한 자리를 확인하세요</span></button>
+    <button class="tapnote" data-table="${g.table}"><span class="finger">☝</span><span><b>내 테이블에 누가 앉는지 궁금하세요?</b><br>눌러서 좌석 배치도를 확인해 보세요</span></button>
     <button class="link" id="again">다른 이름 찾기</button>`;
   document.getElementById('again').onclick=()=>{ st.view='home'; st.who=null; render(true); };
 }
