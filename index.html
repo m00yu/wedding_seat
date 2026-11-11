@@ -457,7 +457,7 @@ document.addEventListener('click', e=>{
   const el = e.target.closest('[data-tab],[data-go],[data-pick],[data-table],[data-person]');
   if(!el) return;
   if(el.dataset.tab){ const k=el.dataset.tab; if(k==='seat' && st.tab==='seat'){ st.view = st.who?'result':'home'; st.sheet=null; } st.tab=k; render(true); return; }
-  if(el.dataset.go){ const k=el.dataset.go; if(k==='pre'){ st.tab='order'; st.scrollPre=true; render(); } else go(k); return; }
+  if(el.dataset.go){ const k=el.dataset.go; if(k==='pre'){ st.tab='order'; st.scrollPre=true; render(); pushNav(); } else go(k); return; }
   if(el.dataset.pick){ pick(el.dataset.pick); return; }
   if(el.dataset.table){ openTable(el.dataset.table); return; }
   if(el.dataset.person){ st.sheet=el.dataset.person; if(st.view==='table') renderTable(); renderSheet(); pushNav(); return; }
