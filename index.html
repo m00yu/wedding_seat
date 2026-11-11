@@ -268,12 +268,12 @@ function render(top){
   if(top) pushNav();
 }
 /* 뒤로가기: 화면 이동마다 기록을 쌓아 앱 안에서 먼저 되돌아가게 */
-const snap = () => JSON.stringify([st.tab, st.view, st.who, st.table, st.sheet]);
+const snap = () => JSON.stringify([st.tab, st.view, st.who, st.table, st.sheet, !!st.pre]);
 let curNav = snap();
 function pushNav(){ const k = snap(); if(k!==curNav){ curNav=k; try{ history.pushState(JSON.parse(k),''); }catch(e){} } }
 window.addEventListener('popstate', e=>{
   const a = e.state; if(!Array.isArray(a)) return;
-  [st.tab, st.view, st.who, st.table, st.sheet] = a; st.q=''; curNav = snap();
+  [st.tab, st.view, st.who, st.table, st.sheet, st.pre] = a; st.q=''; curNav = snap();
   render(true);
 });
 
@@ -298,7 +298,7 @@ function renderSeat(){
       <p class="eyebrow" style="margin-bottom:4px">2026.11.28 · 12:00</p>
       <h1 class="names" style="font-size:25px">정훈<span class="heart">♥</span>현수</h1>
     </div>
-    <p class="date" id="hd2" style="margin:12px 0 16px;font-size:15px">오늘 와주셔서 감사합니다</p>
+    <p class="date" id="hd2" style="margin:12px 0 16px;font-size:15px">결혼식에 참석해 주셔서 감사합니다</p>
     <form id="sf" autocomplete="off">
       <div class="field"><input id="q" type="text" inputmode="text" enterkeyhint="search" placeholder="성함" value="${esc(st.q)}" autocomplete="off" autocapitalize="off" spellcheck="false"><button type="button" class="x" id="clr" aria-label="지우기" style="display:none">✕</button></div>
       <div id="dyn"></div>
@@ -316,10 +316,10 @@ function renderSeat(){
     } else {
       h += `<button class="btn" type="submit">자리 찾기</button>
       <div class="menu">
-        <button type="button" data-go="pre"><b>식전 안내</b><span>함께해 주실 일</span></button>
-        <button type="button" data-go="order"><b>식순</b><span>오늘의 순서</span></button>
-        <button type="button" data-go="story"><b>우리 이야기</b><span>두 사람 소개</span></button>
-        <button type="button" data-go="info"><b>안내</b><span>식사 · 화장실 등</span></button>
+        <button type="button" data-go="pre"><b>🌱 식전 안내</b><span>함께해 주실 일</span></button>
+        <button type="button" data-go="order"><b>🕐 식순</b><span>오늘의 순서</span></button>
+        <button type="button" data-go="story"><b>💌 우리 이야기</b><span>두 사람 소개</span></button>
+        <button type="button" data-go="info"><b>🍽 안내</b><span>식사 · 화장실 등</span></button>
       </div>`;
     }
     document.getElementById('dyn').innerHTML = h;
@@ -395,7 +395,8 @@ const ORDER = [
     {t:'12:35', n:'사진 촬영 · 식사', d:'친척, 친구 순서로 사진을 찍고<br>12시 40분부터 식사해요.', start:'12:35', end:'13:00'}
   ]},
   {part:'2부 · 13:00', items:[
-    {t:'13:00', n:'신랑 · 신부의 수다 시간', d:'', start:'13:00', end:'15:00'}
+    {t:'13:00', n:'신랑 · 신부의 수다 시간', d:'식사하시면서 편하게 들어 주세요.', start:'13:00', end:'13:40'},
+    {t:'13:40', n:'돌아다니며 인사', d:'신랑 신부가 테이블을 돌며 인사드려요.<br>15시까지 편하게 계셔도 괜찮아요.', start:'13:40', end:'15:00'}
   ]}
 ];
 const toMin = s => { const [h,m]=s.split(':').map(Number); return h*60+m; };
@@ -413,8 +414,9 @@ function nowMin(){
 function renderOrder(keep){
   const now = nowMin();
   const y = $view.scrollTop;
-  let h = `<p class="h2">오늘의 식순</p><p class="lead" style="margin-bottom:6px">시간은 조금 달라질 수 있어요.</p>`;
-  ORDER.forEach(sec=>{
+  let h = st.pre ? `<p class="h2">식전 안내</p><p class="lead" style="margin-bottom:6px">예식 전에 함께해 주실 일이에요.</p>`
+    : `<p class="h2">오늘의 식순</p><p class="lead" style="margin-bottom:6px">시간은 조금 달라질 수 있어요.</p>`;
+  (st.pre ? ORDER.slice(0,1) : ORDER).forEach(sec=>{
     const secStart = sec.start ? toMin(sec.start) : null, secEnd = sec.end ? toMin(sec.end) : null;
     const secNow = secStart!=null && now!=null && now>=secStart && now<secEnd;
     const secDone = secEnd!=null && now!=null && now>=secEnd;
@@ -431,11 +433,12 @@ function renderOrder(keep){
     });
     h += '</div>';
   });
+  if(st.pre) h += `<button class="ghost" data-go="order">오늘의 식순 전체 보기</button>`;
   $view.innerHTML = h;
   if(keep){ $view.scrollTop = y; return; }
-  if(st.scrollPre){ st.scrollPre=false; $view.scrollTop=0; return; }
+  if(st.pre){ $view.scrollTop = 0; return; }
   const target = $view.querySelector('.it.now') || $view.querySelector('.part .tag')?.parentElement;
-  $view.scrollTop = target ? Math.max(0, target.offsetTop - 90) : 0;
+  $view.scrollTop = target ? Math.max(0, target.getBoundingClientRect().top - $view.getBoundingClientRect().top + $view.scrollTop - 90) : 0;
 }
 
 /* ---- 우리 이야기 ---- */
@@ -472,8 +475,8 @@ function renderInfo(){
 document.addEventListener('click', e=>{
   const el = e.target.closest('[data-tab],[data-go],[data-pick],[data-table],[data-person]');
   if(!el) return;
-  if(el.dataset.tab){ const k=el.dataset.tab; if(k==='seat' && st.tab==='seat'){ st.view = st.who?'result':'home'; st.sheet=null; } st.tab=k; render(true); return; }
-  if(el.dataset.go){ const k=el.dataset.go; if(k==='pre'){ st.tab='order'; st.scrollPre=true; render(); pushNav(); } else go(k); return; }
+  if(el.dataset.tab){ const k=el.dataset.tab; if(k==='seat' && st.tab==='seat'){ st.view = st.who?'result':'home'; st.sheet=null; } st.tab=k; st.pre=false; render(true); return; }
+  if(el.dataset.go){ const k=el.dataset.go; if(k==='pre'){ st.tab='order'; st.pre=true; render(true); } else { st.pre=false; go(k); } return; }
   if(el.dataset.pick){ pick(el.dataset.pick); return; }
   if(el.dataset.table){ openTable(el.dataset.table); return; }
   if(el.dataset.person){ st.sheet=el.dataset.person; if(st.view==='table') renderTable(); renderSheet(); pushNav(); return; }
