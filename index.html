@@ -253,7 +253,17 @@ function render(top){
   else if(st.tab==='story'){ renderStory(); if(top) $view.scrollTop = 0; }
   else { renderInfo(); if(top) $view.scrollTop = 0; }
   renderSheet();
+  if(top) pushNav();
 }
+/* 뒤로가기: 화면 이동마다 기록을 쌓아 앱 안에서 먼저 되돌아가게 */
+const snap = () => JSON.stringify([st.tab, st.view, st.who, st.table, st.sheet]);
+let curNav = snap();
+function pushNav(){ const k = snap(); if(k!==curNav){ curNav=k; try{ history.pushState(JSON.parse(k),''); }catch(e){} } }
+window.addEventListener('popstate', e=>{
+  const a = e.state; if(!Array.isArray(a)) return;
+  [st.tab, st.view, st.who, st.table, st.sheet] = a; st.q=''; curNav = snap();
+  render(true);
+});
 
 /* ---- 내 자리 ---- */
 function matches(q){
@@ -356,7 +366,7 @@ function renderSheet(){
     <button class="ghost" id="cl">닫기</button></div>`;
   document.getElementById('dim').onclick=closeSheet; document.getElementById('cl').onclick=closeSheet;
 }
-function closeSheet(){ st.sheet=null; if(st.view==='table') renderTable(); renderSheet(); }
+function closeSheet(){ if(history.state&&history.state[4]){ history.back(); return; } st.sheet=null; if(st.view==='table') renderTable(); renderSheet(); }
 
 /* ---- 식순 ---- */
 const ORDER = [
@@ -450,12 +460,13 @@ document.addEventListener('click', e=>{
   if(el.dataset.go){ const k=el.dataset.go; if(k==='pre'){ st.tab='order'; st.scrollPre=true; render(); } else go(k); return; }
   if(el.dataset.pick){ pick(el.dataset.pick); return; }
   if(el.dataset.table){ openTable(el.dataset.table); return; }
-  if(el.dataset.person){ st.sheet=el.dataset.person; if(st.view==='table') renderTable(); renderSheet(); return; }
+  if(el.dataset.person){ st.sheet=el.dataset.person; if(st.view==='table') renderTable(); renderSheet(); pushNav(); return; }
 });
 // ?n=이름 으로 바로 열기 (테스트·개별 링크용)
 const qn = params.get('n');
 if(qn && G[qn]){ st.who=qn; st.table=G[qn].table; st.view='result'; }
 const qt = params.get('tab'); if(qt && ['order','story','info'].includes(qt)) st.tab=qt;
+curNav = snap(); try{ history.replaceState(JSON.parse(curNav),''); }catch(e){}
 render(true);
 setInterval(()=>{ if(st.tab==='order') renderOrder(true); }, 30000);
 </script>
