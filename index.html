@@ -286,7 +286,7 @@ function renderSeat(){
       <p class="eyebrow" style="margin-bottom:4px">2026.11.28 · 12:00</p>
       <h1 class="names" style="font-size:25px">정훈<span class="heart">♥</span>현수</h1>
     </div>
-    <p class="h2" style="text-align:center;margin:14px 0 8px">내 자리 찾기</p>
+    <p class="date" id="hd2" style="margin:12px 0 16px;font-size:15px">오늘 와주셔서 감사합니다</p>
     <form id="sf" autocomplete="off">
       <div class="field"><input id="q" type="text" inputmode="text" enterkeyhint="search" placeholder="성함" value="${esc(st.q)}" autocomplete="off" autocapitalize="off" spellcheck="false"><button type="button" class="x" id="clr" aria-label="지우기" style="display:none">✕</button></div>
       <div id="dyn"></div>
@@ -295,7 +295,7 @@ function renderSeat(){
   const update = () => {
     const q = inp.value; st.q = q;
     clr.style.display = q ? '' : 'none';
-    document.getElementById('hd').style.display = q.trim() ? 'none' : '';
+    document.getElementById('hd').style.display = document.getElementById('hd2').style.display = q.trim() ? 'none' : '';
     const m = matches(q);
     let h = '';
     if(q.trim()){
