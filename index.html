@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FBF7EE">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="description" content="2026.11.28 정훈 ♥ 현수 결혼식 · 자리 안내">
+<meta property="og:title" content="정훈 ♥ 현수 · 자리 안내">
+<meta property="og:description" content="성함을 입력하면 내 자리를 찾아드려요">
+<title>정훈 ♥ 현수 · 자리 안내</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;600&family=Noto+Sans+KR:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap">
+<style>
+  :root{
+    --paper:#FBF7EE; --paper-2:#F4EDDD; --ground:#EDE7D8;
+    --ink:#2E2B24; --ink-soft:#5B5749; --ink-faint:#8A836E;
+    --gold:#A98A54; --line:#D9CFB6; --shadow:rgba(46,43,36,.18);
+    --rose:#B5544A;
+    --c1:#B0644E; --c2:#4B7A8E; --c3:#5F8A4C;
+    --z1:#F3DDD3; --z2:#C9D8DE; --z32:#CFE3CC;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;height:100%;}
+  body{background:var(--ground);color:var(--ink);font-family:'Noto Sans KR','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased;word-break:keep-all;}
+  button{font:inherit;color:inherit;border:none;background:none;padding:0;cursor:pointer;}
+  input{font:inherit;}
+  #app{max-width:430px;margin:0 auto;height:100%;background:var(--paper);display:flex;flex-direction:column;position:relative;box-shadow:0 0 40px -12px var(--shadow);overflow:hidden;}
+  #view{flex:1;overflow-y:auto;overflow-x:hidden;padding:18px 22px 24px;-webkit-overflow-scrolling:touch;}
+  .tabbar{flex:none;height:calc(58px + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);background:var(--paper);}
+  .tab{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11.5px;color:var(--ink-faint);}
+  .tab i{font-style:normal;font-size:17px;line-height:1;}
+  .tab.on{color:var(--gold);font-weight:500;}
+  .callbar{flex:none;padding:8px 16px 10px;background:var(--paper);}
+
+  .serif{font-family:'Noto Serif KR',serif;}
+  .eyebrow{margin:0 0 8px;font-size:10px;font-weight:500;letter-spacing:.34em;color:var(--gold);text-align:center;}
+  .names{margin:0;font-family:'Noto Serif KR',serif;font-weight:400;font-size:30px;letter-spacing:.04em;text-align:center;}
+  .names .heart{font-size:.44em;color:var(--rose);vertical-align:.3em;margin-inline:.16em;}
+  .date{margin:10px 0 0;font-family:'Noto Serif KR',serif;font-size:14px;letter-spacing:.08em;color:var(--ink-soft);text-align:center;}
+  .h2{font-family:'Noto Serif KR',serif;font-weight:500;font-size:19px;margin:4px 0 6px;}
+  .lead{margin:0 0 14px;font-size:14px;line-height:1.7;color:var(--ink-soft);}
+  .rule{border:none;border-top:1px solid var(--line);margin:22px 0;}
+
+  /* 홈 */
+  .field{display:flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--gold);border-radius:12px;padding:13px 14px;}
+  .field input{flex:1;min-width:0;border:none;outline:none;background:transparent;font-size:17px;color:var(--ink);}
+  .field input::placeholder{color:var(--ink-faint);}
+  .field .x{color:var(--ink-faint);font-size:17px;padding:0 2px;}
+  .btn{display:block;width:100%;margin-top:10px;background:var(--ink);color:var(--paper);text-align:center;border-radius:12px;padding:14px;font-size:15px;letter-spacing:.06em;}
+  .menu{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px;}
+  .menu button{text-align:left;background:var(--paper-2);border:1px solid var(--line);border-radius:12px;padding:14px 14px;font-size:13px;line-height:1.5;}
+  .menu b{display:block;font-family:'Noto Serif KR',serif;font-weight:500;font-size:15.5px;margin-bottom:2px;}
+  .menu span{color:var(--ink-faint);font-size:12px;}
+  .sugg{margin-top:8px;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;}
+  .sugg button{display:flex;width:100%;justify-content:space-between;align-items:center;padding:15px 16px;font-size:17px;border-bottom:1px solid var(--line);text-align:left;}
+  .sugg button:last-child{border:none;}
+  .sugg em{font-style:normal;color:var(--gold);font-weight:500;}
+  .sugg small{color:var(--ink-faint);font-size:12.5px;}
+  .help{margin-top:20px;font-size:13.5px;line-height:1.85;color:var(--ink-soft);text-align:center;}
+  .help a{color:var(--ink-soft);}
+
+  /* 결과 */
+  .greet{font-family:'Noto Serif KR',serif;font-size:24px;font-weight:500;margin:6px 0 4px;letter-spacing:.01em;}
+  .zone{font-family:'Noto Serif KR',serif;font-size:18px;font-weight:500;line-height:1.5;margin:0 0 14px;}
+  .mapwrap{background:#fff;border:1px solid var(--line);border-radius:12px;padding:6px;margin-bottom:8px;}
+  .mapwrap svg{display:block;width:100%;height:auto;}
+  .legend{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--ink-soft);margin:4px 2px 14px;}
+  .legend span{display:inline-flex;align-items:center;gap:5px;}
+  .legend i{width:11px;height:11px;border-radius:3px;border:1px solid;display:inline-block;}
+  .tapnote{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--paper-2);border:1px solid var(--gold);border-radius:12px;padding:12px 14px;font-size:15px;line-height:1.6;}
+  .tapnote .finger{font-size:22px;color:var(--gold);}
+  .tapnote b{font-family:'Noto Serif KR',serif;font-weight:500;}
+  .link{display:block;margin:16px auto 0;font-size:13.5px;color:var(--ink-faint);text-decoration:underline;text-underline-offset:3px;}
+  @keyframes pulse{0%,100%{opacity:.35}50%{opacity:1}}
+  @keyframes dash{to{stroke-dashoffset:-20}}
+  .hl{animation:pulse 1.8s ease-in-out infinite;}
+  .path{animation:dash 1.2s linear infinite;}
+  .tbl-hit{cursor:pointer;}
+
+  /* 테이블 */
+  .back{font-size:13.5px;color:var(--ink-faint);margin-bottom:8px;}
+  .thead{display:flex;align-items:center;gap:8px;margin-bottom:4px;}
+  .badge{font-family:'Noto Serif KR',serif;font-weight:500;font-size:13px;border-radius:999px;padding:4px 11px;white-space:nowrap;}
+  .badge.s1{background:var(--z1);color:var(--c1);} .badge.s2{background:var(--z2);color:var(--c2);} .badge.s3{background:var(--z32);color:var(--c3);}
+  .thead h2{margin:0;font-family:'Noto Serif KR',serif;font-weight:500;font-size:17px;}
+  .top{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-faint);margin:10px 0 0;}
+  .tbl{display:grid;grid-template-columns:1fr 30px 1fr;gap:5px;margin:6px 0 6px;}
+  .seats{display:flex;flex-direction:column;gap:4px;}
+  .seat{height:34px;border-radius:7px;font-size:15px;display:flex;align-items:center;padding:0 9px;background:#fff;border:1px solid var(--line);white-space:nowrap;width:100%;text-align:left;}
+  .seats.l .seat{justify-content:flex-end;}
+  .seat.empty{border-style:dashed;color:#CFC6AE;background:transparent;font-size:12px;}
+  .seat.me{background:var(--gold);border-color:var(--gold);color:#fff;font-weight:500;}
+  .seat.sel{border:2px solid var(--rose);}
+  .bar{background:var(--z2);border:1px solid #9DB3BC;border-radius:6px;display:flex;align-items:center;justify-content:center;}
+  .bar span{writing-mode:vertical-rl;font-size:11px;letter-spacing:.3em;color:#3d5560;}
+  /* 가로 테이블 */
+  .hrow{display:grid;gap:4px;margin:4px 0;}
+  .hrow .seat{height:auto;min-height:42px;justify-content:center;padding:4px 2px;font-size:14px;text-align:center;white-space:normal;word-break:keep-all;line-height:1.25;}
+  .hbar{height:26px;border-radius:6px;background:var(--z32);border:1px solid #A9C7A4;display:flex;align-items:center;justify-content:center;font-size:11px;letter-spacing:.3em;color:#41552f;margin:2px 0;}
+  .dim{position:fixed;inset:0;background:rgba(46,43,36,.45);z-index:20;}
+  .sheet{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:100%;max-width:430px;background:var(--paper);border-radius:20px 20px 0 0;padding:16px 22px calc(22px + env(safe-area-inset-bottom));box-shadow:0 -10px 30px rgba(0,0,0,.18);z-index:21;}
+  .sheet .grab{width:38px;height:4px;border-radius:2px;background:var(--line);margin:0 auto 14px;}
+  .who{font-family:'Noto Serif KR',serif;font-size:24px;font-weight:500;margin:0;}
+  .rel{margin:4px 0 16px;font-size:15.5px;color:var(--rose);font-weight:500;line-height:1.5;}
+  .kv{display:grid;grid-template-columns:46px 1fr;gap:8px 8px;font-size:15px;line-height:1.6;margin:0;}
+  .kv dt{color:var(--ink-faint);} .kv dd{margin:0;}
+  .ghost{display:block;width:100%;margin-top:16px;text-align:center;border:1px solid var(--gold);color:var(--gold);border-radius:12px;padding:12px;font-size:14.5px;font-weight:500;}
+
+  /* 식순 */
+  .tl{position:relative;margin:6px 0 0 4px;padding-left:22px;}
+  .tl::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:1px;background:var(--line);}
+  .it{position:relative;padding:0 0 18px;transition:opacity .3s;}
+  .it::before{content:"";position:absolute;left:-21px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--paper);border:1.5px solid var(--gold);}
+  .it.now::before{background:var(--rose);border-color:var(--rose);box-shadow:0 0 0 5px rgba(181,84,74,.16);}
+  .it.done{opacity:.42;}
+  .it .t{font-size:12px;letter-spacing:.06em;color:var(--gold);font-weight:500;}
+  .it .n{font-family:'Noto Serif KR',serif;font-size:16.5px;font-weight:500;margin:3px 0;}
+  .it .d{font-size:14px;line-height:1.7;color:var(--ink-soft);}
+  .tag{display:inline-block;margin-left:7px;font-size:10.5px;background:var(--rose);color:#fff;border-radius:4px;padding:1px 6px;vertical-align:1px;letter-spacing:.06em;}
+  .part{font-size:12.5px;letter-spacing:.2em;color:var(--ink-faint);margin:10px 0 6px -2px;}
+  .note{font-size:13px;color:var(--ink-faint);margin:2px 0 6px;}
+
+  /* 우리 이야기 */
+  .line{position:relative;margin-left:4px;padding-left:16px;border-left:1px solid var(--line);margin-top:6px;}
+  .yr{position:relative;margin-bottom:26px;}
+  .yr::before{content:"";position:absolute;left:-21px;top:5px;width:9px;height:9px;border-radius:50%;background:var(--gold);}
+  .yr .y{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold);line-height:1;margin-bottom:8px;}
+  .yr .ph{aspect-ratio:3/2;border-radius:10px;background-size:cover;background-color:var(--paper-2);}
+  .yr .x{font-size:15px;line-height:1.85;color:var(--ink);margin-top:10px;}
+
+  /* 안내 */
+  .info{display:flex;gap:12px;margin-bottom:20px;}
+  .info .ic{flex:none;width:34px;height:34px;border-radius:50%;background:var(--paper-2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:16px;}
+  .info b{font-family:'Noto Serif KR',serif;font-weight:500;font-size:16.5px;display:block;}
+  .info p{margin:3px 0 0;font-size:14.5px;line-height:1.7;color:var(--ink-soft);}
+  .info p strong{font-weight:500;color:var(--ink);}
+  .sorry{background:var(--paper-2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:14px;line-height:1.7;color:var(--ink);margin:8px 0 4px;}
+  .sorry b{display:inline;font-size:15.5px;}
+  .veg{display:flex;flex-wrap:wrap;gap:4px;margin:8px 0 6px;}
+  .veg span{font-size:11px;padding:2px 7px;border-radius:999px;background:#EAF0E1;border:1px solid #CFDCBF;color:#41552f;}
+  .warn{font-size:12px;color:var(--ink-faint);}
+  .call{display:flex;justify-content:space-between;align-items:center;background:var(--ink);color:var(--paper);border-radius:12px;padding:12px 16px;text-decoration:none;}
+  .call span{font-size:13px;opacity:.88;line-height:1.5;}
+  .call b{font-size:17px;letter-spacing:.04em;font-weight:500;color:#fff;}
+  .empty-msg{text-align:center;margin-top:18px;font-size:14.5px;line-height:1.85;color:var(--ink-soft);}
+</style>
+</head>
+<body>
+<div id="app">
+  <main id="view"></main>
+  <div id="callwrap"></div>
+  <nav class="tabbar" id="tabbar"></nav>
+</div>
+<div id="overlay"></div>
+
+<script>
+const DATA = {"tables":[{"id":"1-1","space":"1","label":"1번 신랑 가족석","orient":"v","rect":[62,65,26,148],"a":[null,null,null,"나영순","나영실","나옥채","김리안","정유희"],"b":[null,null,null,"강기형","전문기","공경은","김정환","정재헌"]},{"id":"1-2","space":"1","label":"1번 신랑 가족석","orient":"v","rect":[165,65,26,148],"a":["박유나","최인혁","박찬웅","박체리","최상호","최희성","형수님",null],"b":["박창균","나은아","박준태","유서진","최형태","박연숙","정몽주","박채연"]},{"id":"2-1","space":"2","label":"2번 신부 가족석","orient":"v","rect":[468,43,26,170],"a":["김홍규","강민옥","김윤수","김현준","정주연","윤영민","강민구","강윤우"],"b":["강흥용","정호숙","강민정","박연주","현공스님","강윤희","박선희","강유은"]},{"id":"2-2","space":"2","label":"2번 신부 가족석","orient":"v","rect":[530,43,26,170],"a":[null,null,"임지연","고건","한순영","윤재호","박재연","심우섭","윤원석","박성희"],"b":[null,null,"김혜숙","고두영","김용규","김현진","박준언","김희숙","윤지환","박성원"]},{"id":"2-3","space":"2","label":"2번 신부 가족석","orient":"v","rect":[594,43,26,170],"a":[null,null,"신희진","임지원","고순례","이동현","최아름","강서우","이선희","김찬민"],"b":[null,null,"임성호","임승원","강흥업","강혜송","강경운",null,"정호열",null]},{"id":"3-1","space":"3","label":"3번 지인석","orient":"h","rect":[22,266,88,21],"a":[null,null,null,"신유정"],"b":[null,null,null,"허성환"]},{"id":"3-2","space":"3","label":"3번 지인석","orient":"h","rect":[114,266,159,21],"a":["유대승","이현규","서희강","장규진","곽희도","조형훈"],"b":["김예레","박진수","김상연","노재훈","황예빈","박현아"]},{"id":"3-3","space":"3","label":"3번 지인석","orient":"h","rect":[114,322,159,21],"a":["조석원",null,"정형기","이선민","이승연","성다연"],"b":["서예은","주강현","장정환","오태연","이민주","홍유진"]},{"id":"4-1","space":"3","label":"3번 지인석","orient":"h","rect":[22,382,159,21],"a":[null,null,null,"김준성","알렉스","김유진"],"b":[null,null,null,"김영위","호재민","송시흔"]},{"id":"4-2","space":"3","label":"3번 지인석","orient":"h","rect":[186,382,89,21],"a":["최민정","고민지","정채은","민정빈"],"b":["김동건","채가은","김수완","이유진"]},{"id":"4-3","space":"3","label":"3번 지인석","orient":"h","rect":[225,443,50,21],"a":[null,"김현철"],"b":["김동현","이진섭"]},{"id":"4-4","space":"3","label":"3번 지인석","orient":"h","rect":[22,496,159,21],"a":[null,null,"신유진","박세영","조세계","조세훈"],"b":[null,"신서현","나지영","송은경","오성민","서훈주"]},{"id":"4-5","space":"3","label":"3번 지인석","orient":"h","rect":[186,496,89,21],"a":["권하영","오선영","정수진","최한솔"],"b":["이미현","방철우","장재호","강석희"]}],"guests":[{"name":"나영순","table":"1-1","side":"a","idx":3,"title":"신랑 정훈의 둘째 이모","label":"둘째이모네","mates":["강기형"]},{"name":"나영실","table":"1-1","side":"a","idx":4,"title":"신랑 정훈의 큰이모","label":"큰이모네","mates":["전문기","공경은"]},{"name":"나옥채","table":"1-1","side":"a","idx":5,"title":"신랑 정훈의 막내 이모","label":"막내이모네","mates":["김정환","김리안"]},{"name":"김리안","table":"1-1","side":"a","idx":6,"title":"신랑 정훈의 사촌","label":"막내이모네","mates":["나옥채","김정환"]},{"name":"정유희","table":"1-1","side":"a","idx":7,"title":"신랑 정훈의 사촌 누나","label":"작은고모네","mates":["박채연","정몽주","정재헌"]},{"name":"강기형","table":"1-1","side":"b","idx":3,"title":"신랑 정훈의 둘째 이모부","label":"둘째이모네","mates":["나영순"]},{"name":"전문기","table":"1-1","side":"b","idx":4,"title":"신랑 정훈의 사촌 형","label":"큰이모네","mates":["나영실","공경은"]},{"name":"공경은","table":"1-1","side":"b","idx":5,"title":"신랑 정훈 사촌 형 전문기의 여자친구","label":"큰이모네","mates":["나영실","전문기"]},{"name":"김정환","table":"1-1","side":"b","idx":6,"title":"신랑 정훈의 막내 이모부","label":"막내이모네","mates":["나옥채","김리안"]},{"name":"정재헌","table":"1-1","side":"b","idx":7,"title":"신랑 정훈의 사촌 형","label":"작은고모네","mates":["박채연","정몽주","정유희"]},{"name":"박유나","table":"1-2","side":"a","idx":0,"title":"신랑 정훈의 여동생","label":"","mates":["최인혁"]},{"name":"최인혁","table":"1-2","side":"a","idx":1,"title":"신랑 정훈 여동생 유나의 남자친구","label":"","mates":["박유나"]},{"name":"박찬웅","table":"1-2","side":"a","idx":2,"title":"신랑 정훈의 사촌 형","label":"큰아빠네","mates":["박준태","유서진","박체리"]},{"name":"박체리","table":"1-2","side":"a","idx":3,"title":"신랑 정훈의 사촌 동생","label":"큰아빠네","mates":["박준태","유서진","박찬웅"]},{"name":"최상호","table":"1-2","side":"a","idx":4,"title":"신랑 정훈의 사촌","label":"큰고모네","mates":["박연숙","최형태","최희성","형수님"]},{"name":"최희성","table":"1-2","side":"a","idx":5,"title":"신랑 정훈의 사촌","label":"큰고모네","mates":["박연숙","최형태","최상호","형수님"]},{"name":"형수님","table":"1-2","side":"a","idx":6,"title":"신랑 정훈 사촌 최희성의 아내","label":"큰고모네","mates":["박연숙","최형태","최상호","최희성"]},{"name":"박창균","table":"1-2","side":"b","idx":0,"title":"신랑 정훈의 아버지","label":"","mates":["나은아"]},{"name":"나은아","table":"1-2","side":"b","idx":1,"title":"신랑 정훈의 어머니","label":"","mates":["박창균"]},{"name":"박준태","table":"1-2","side":"b","idx":2,"title":"신랑 정훈의 큰아버지","label":"큰아빠네","mates":["유서진","박찬웅","박체리"]},{"name":"유서진","table":"1-2","side":"b","idx":3,"title":"신랑 정훈의 큰어머니","label":"큰아빠네","mates":["박준태","박찬웅","박체리"]},{"name":"최형태","table":"1-2","side":"b","idx":4,"title":"신랑 정훈의 큰고모부","label":"큰고모네","mates":["박연숙","최상호","최희성","형수님"]},{"name":"박연숙","table":"1-2","side":"b","idx":5,"title":"신랑 정훈의 큰고모","label":"큰고모네","mates":["최형태","최상호","최희성","형수님"]},{"name":"정몽주","table":"1-2","side":"b","idx":6,"title":"신랑 정훈의 작은고모부","label":"작은고모네","mates":["박채연","정재헌","정유희"]},{"name":"박채연","table":"1-2","side":"b","idx":7,"title":"신랑 정훈의 작은고모","label":"작은고모네","mates":["정몽주","정재헌","정유희"]},{"name":"김홍규","table":"2-1","side":"a","idx":0,"title":"신부 현수의 아버지","label":"","mates":["강민옥","김현준","김윤수","정주연"]},{"name":"강민옥","table":"2-1","side":"a","idx":1,"title":"신부 현수의 어머니","label":"","mates":["김홍규","김현준","김윤수","정주연"]},{"name":"김윤수","table":"2-1","side":"a","idx":2,"title":"신부 현수의 동생","label":"","mates":["김홍규","강민옥","김현준","정주연"]},{"name":"김현준","table":"2-1","side":"a","idx":3,"title":"신부 현수의 오빠","label":"","mates":["김홍규","강민옥","김윤수","정주연"]},{"name":"정주연","table":"2-1","side":"a","idx":4,"title":"신부 현수 오빠 현준의 배우자","label":"","mates":["김홍규","강민옥","김현준","김윤수"]},{"name":"윤영민","table":"2-1","side":"a","idx":5,"title":"신부 현수의 작은이모부","label":"작은이모네","mates":["강윤희","윤원석","윤지환"]},{"name":"강민구","table":"2-1","side":"a","idx":6,"title":"신부 현수의 삼촌","label":"삼촌네","mates":["박선희","강유은","강윤우"]},{"name":"강윤우","table":"2-1","side":"a","idx":7,"title":"신부 현수의 사촌 동생","label":"삼촌네","mates":["강민구","박선희","강유은"]},{"name":"강흥용","table":"2-1","side":"b","idx":0,"title":"신부 현수의 외할아버지","label":"","mates":["정호숙"]},{"name":"정호숙","table":"2-1","side":"b","idx":1,"title":"신부 현수의 외할머니","label":"","mates":["강흥용"]},{"name":"강민정","table":"2-1","side":"b","idx":2,"title":"신부 현수의 큰이모","label":"큰이모네","mates":["박연주","박성원","박성희"]},{"name":"박연주","table":"2-1","side":"b","idx":3,"title":"신부 현수의 큰이모부","label":"큰이모네","mates":["강민정","박성원","박성희"]},{"name":"현공스님","table":"2-1","side":"b","idx":4,"title":"신부 현수 부모님의 지인","label":"","mates":[]},{"name":"강윤희","table":"2-1","side":"b","idx":5,"title":"신부 현수의 작은이모","label":"작은이모네","mates":["윤영민","윤원석","윤지환"]},{"name":"박선희","table":"2-1","side":"b","idx":6,"title":"신부 현수의 외숙모","label":"삼촌네","mates":["강민구","강유은","강윤우"]},{"name":"강유은","table":"2-1","side":"b","idx":7,"title":"신부 현수의 사촌 동생","label":"삼촌네","mates":["강민구","박선희","강윤우"]},{"name":"임지연","table":"2-2","side":"a","idx":2,"title":"신부 현수의 사촌","label":"큰고모네","mates":["고두영","고건"]},{"name":"고건","table":"2-2","side":"a","idx":3,"title":"신부 현수 사촌 임지연의 가족","label":"큰고모네","mates":["임지연","고두영"]},{"name":"한순영","table":"2-2","side":"a","idx":4,"title":"신부 현수의 큰어머니","label":"큰아빠네","mates":["김용규","김현진","윤재호"]},{"name":"윤재호","table":"2-2","side":"a","idx":5,"title":"신부 현수 사촌 김현진의 가족","label":"큰아빠네","mates":["김용규","한순영","김현진"]},{"name":"박재연","table":"2-2","side":"a","idx":6,"title":"신부 현수의 고모부 댁","label":"고모부네","mates":["박준언"]},{"name":"심우섭","table":"2-2","side":"a","idx":7,"title":"신부 현수 아버지 사촌 김희숙의 가족","label":"","mates":["김희숙"]},{"name":"윤원석","table":"2-2","side":"a","idx":8,"title":"신부 현수의 사촌 동생","label":"작은이모네","mates":["강윤희","윤영민","윤지환"]},{"name":"박성희","table":"2-2","side":"a","idx":9,"title":"신부 현수의 사촌 동생","label":"큰이모네","mates":["강민정","박연주","박성원"]},{"name":"김혜숙","table":"2-2","side":"b","idx":2,"title":"신부 현수의 큰고모","label":"큰고모네","mates":[]},{"name":"고두영","table":"2-2","side":"b","idx":3,"title":"신부 현수 사촌 임지연의 가족","label":"큰고모네","mates":["임지연","고건"]},{"name":"김용규","table":"2-2","side":"b","idx":4,"title":"신부 현수의 큰아버지","label":"큰아빠네","mates":["한순영","김현진","윤재호"]},{"name":"김현진","table":"2-2","side":"b","idx":5,"title":"신부 현수의 사촌","label":"큰아빠네","mates":["김용규","한순영","윤재호"]},{"name":"박준언","table":"2-2","side":"b","idx":6,"title":"신부 현수의 고모부 댁","label":"고모부네","mates":["박재연"]},{"name":"김희숙","table":"2-2","side":"b","idx":7,"title":"신부 현수 아버지의 사촌","label":"","mates":["심우섭"]},{"name":"윤지환","table":"2-2","side":"b","idx":8,"title":"신부 현수의 사촌 동생","label":"작은이모네","mates":["강윤희","윤영민","윤원석"]},{"name":"박성원","table":"2-2","side":"b","idx":9,"title":"신부 현수의 사촌 언니","label":"큰이모네","mates":["강민정","박연주","박성희"]},{"name":"신희진","table":"2-3","side":"a","idx":2,"title":"신부 현수 사촌 임성호의 가족","label":"큰고모네","mates":["임성호","임지원","임승원"]},{"name":"임지원","table":"2-3","side":"a","idx":3,"title":"신부 현수 사촌 임성호의 가족","label":"큰고모네","mates":["임성호","신희진","임승원"]},{"name":"고순례","table":"2-3","side":"a","idx":4,"title":"신부 현수 외할아버지 동생 강흥업의 가족","label":"","mates":["강흥업"]},{"name":"이동현","table":"2-3","side":"a","idx":5,"title":"신부 현수 어머니 사촌 강혜송의 가족","label":"","mates":["강혜송"]},{"name":"최아름","table":"2-3","side":"a","idx":6,"title":"신부 현수 어머니 사촌 강경운의 가족","label":"","mates":["강경운","강서우"]},{"name":"강서우","table":"2-3","side":"a","idx":7,"title":"신부 현수 어머니 사촌 강경운의 가족","label":"","mates":["강경운","최아름"]},{"name":"이선희","table":"2-3","side":"a","idx":8,"title":"신부 현수 외할머니 동생 정호열의 가족","label":"","mates":["정호열","김찬민"]},{"name":"김찬민","table":"2-3","side":"a","idx":9,"title":"신부 현수 외할머니 동생 정호열의 가족","label":"","mates":["정호열","이선희"]},{"name":"임성호","table":"2-3","side":"b","idx":2,"title":"신부 현수의 사촌","label":"큰고모네","mates":["신희진","임지원","임승원"]},{"name":"임승원","table":"2-3","side":"b","idx":3,"title":"신부 현수 사촌 임성호의 가족","label":"큰고모네","mates":["임성호","신희진","임지원"]},{"name":"강흥업","table":"2-3","side":"b","idx":4,"title":"신부 현수의 외할아버지 동생","label":"","mates":["고순례"]},{"name":"강혜송","table":"2-3","side":"b","idx":5,"title":"신부 현수 어머니의 사촌","label":"","mates":["이동현"]},{"name":"강경운","table":"2-3","side":"b","idx":6,"title":"신부 현수 어머니의 사촌","label":"","mates":["최아름","강서우"]},{"name":"정호열","table":"2-3","side":"b","idx":8,"title":"신부 현수의 외할머니 동생","label":"","mates":["이선희","김찬민"]},{"name":"신유정","table":"3-1","side":"a","idx":3,"title":"신랑 정훈의 친구","label":"","mates":[]},{"name":"허성환","table":"3-1","side":"b","idx":3,"title":"신랑 정훈의 친구","label":"","mates":[]},{"name":"유대승","table":"3-2","side":"a","idx":0,"title":"신랑 정훈의 군대 동기","label":"","mates":[]},{"name":"이현규","table":"3-2","side":"a","idx":1,"title":"신랑 정훈의 군대 동기","label":"","mates":[]},{"name":"서희강","table":"3-2","side":"a","idx":2,"title":"신랑 정훈의 군대 동기","label":"","mates":[]},{"name":"장규진","table":"3-2","side":"a","idx":3,"title":"신랑 정훈의 친구 · 오늘의 사회자","label":"","mates":[]},{"name":"곽희도","table":"3-2","side":"a","idx":4,"title":"신랑 정훈의 친구","label":"","mates":[]},{"name":"조형훈","table":"3-2","side":"a","idx":5,"title":"신랑 정훈의 친구","label":"","mates":[]},{"name":"김예레","table":"3-2","side":"b","idx":0,"title":"신랑 정훈의 친구","label":"","mates":[]},{"name":"박진수","table":"3-2","side":"b","idx":1,"title":"신랑 정훈의 군대 동기","label":"","mates":[]},{"name":"김상연","table":"3-2","side":"b","idx":2,"title":"신랑 정훈의 친구","label":"","mates":[]},{"name":"노재훈","table":"3-2","side":"b","idx":3,"title":"신랑 정훈의 친구","label":"","mates":[]},{"name":"황예빈","table":"3-2","side":"b","idx":4,"title":"신랑 정훈의 친구","label":"","mates":[]},{"name":"박현아","table":"3-2","side":"b","idx":5,"title":"신랑 정훈의 친구","label":"","mates":[]},{"name":"조석원","table":"3-3","side":"a","idx":0,"title":"신부 현수 친구 서예은의 짝","label":"","mates":["서예은"]},{"name":"정형기","table":"3-3","side":"a","idx":2,"title":"신랑 정훈의 지인","label":"","mates":[]},{"name":"이선민","table":"3-3","side":"a","idx":3,"title":"신부 현수의 고등학교 친구","label":"","mates":[]},{"name":"이승연","table":"3-3","side":"a","idx":4,"title":"신부 현수의 고등학교 친구","label":"","mates":[]},{"name":"성다연","table":"3-3","side":"a","idx":5,"title":"신부 현수의 고등학교 친구","label":"","mates":[]},{"name":"서예은","table":"3-3","side":"b","idx":0,"title":"신부 현수의 친구","label":"","mates":["조석원"]},{"name":"주강현","table":"3-3","side":"b","idx":1,"title":"신랑 정훈의 지인","label":"","mates":[]},{"name":"장정환","table":"3-3","side":"b","idx":2,"title":"신랑 정훈의 지인","label":"","mates":[]},{"name":"오태연","table":"3-3","side":"b","idx":3,"title":"신부 현수의 고등학교 친구","label":"","mates":[]},{"name":"이민주","table":"3-3","side":"b","idx":4,"title":"신부 현수의 고등학교 친구","label":"","mates":[]},{"name":"홍유진","table":"3-3","side":"b","idx":5,"title":"신부 현수의 고등학교 친구","label":"","mates":[]},{"name":"김준성","table":"4-1","side":"a","idx":3,"title":"신랑 · 신부의 친구","label":"","mates":[]},{"name":"알렉스","table":"4-1","side":"a","idx":4,"title":"신랑 · 신부의 친구","label":"","mates":[]},{"name":"김유진","table":"4-1","side":"a","idx":5,"title":"신랑 · 신부의 친구","label":"","mates":[]},{"name":"김영위","table":"4-1","side":"b","idx":3,"title":"신랑 · 신부의 친구","label":"","mates":[]},{"name":"호재민","table":"4-1","side":"b","idx":4,"title":"신랑 · 신부의 친구","label":"","mates":[]},{"name":"송시흔","table":"4-1","side":"b","idx":5,"title":"신랑 · 신부의 친구","label":"","mates":[]},{"name":"최민정","table":"4-2","side":"a","idx":0,"title":"신랑 · 신부의 친구","label":"","mates":[]},{"name":"고민지","table":"4-2","side":"a","idx":1,"title":"신랑 · 신부의 친구","label":"","mates":[]},{"name":"정채은","table":"4-2","side":"a","idx":2,"title":"신랑 · 신부의 친구","label":"","mates":[]},{"name":"민정빈","table":"4-2","side":"a","idx":3,"title":"신랑 · 신부의 친구","label":"","mates":[]},{"name":"김동건","table":"4-2","side":"b","idx":0,"title":"신랑 · 신부의 친구","label":"","mates":[]},{"name":"채가은","table":"4-2","side":"b","idx":1,"title":"신랑 · 신부의 친구","label":"","mates":[]},{"name":"김수완","table":"4-2","side":"b","idx":2,"title":"신랑 · 신부의 친구","label":"","mates":[]},{"name":"이유진","table":"4-2","side":"b","idx":3,"title":"신랑 · 신부의 친구","label":"","mates":[]},{"name":"김현철","table":"4-3","side":"a","idx":1,"title":"신랑 정훈의 고등학교 친구","label":"","mates":[]},{"name":"김동현","table":"4-3","side":"b","idx":0,"title":"신랑 정훈의 고등학교 친구","label":"","mates":[]},{"name":"이진섭","table":"4-3","side":"b","idx":1,"title":"신랑 정훈의 고등학교 친구","label":"","mates":[]},{"name":"신유진","table":"4-4","side":"a","idx":2,"title":"신부 현수 부모님의 지인","label":"","mates":["신서현"]},{"name":"박세영","table":"4-4","side":"a","idx":3,"title":"신부 현수 부모님의 지인","label":"","mates":["송은경"]},{"name":"조세계","table":"4-4","side":"a","idx":4,"title":"신부 현수 부모님의 지인","label":"","mates":["오성민","조세훈"]},{"name":"조세훈","table":"4-4","side":"a","idx":5,"title":"신부 현수 부모님의 지인","label":"","mates":["오성민","조세계"]},{"name":"신서현","table":"4-4","side":"b","idx":1,"title":"신부 현수 부모님의 지인","label":"","mates":["신유진"]},{"name":"나지영","table":"4-4","side":"b","idx":2,"title":"신부 현수 부모님의 지인","label":"","mates":[]},{"name":"송은경","table":"4-4","side":"b","idx":3,"title":"신부 현수 부모님의 지인","label":"","mates":["박세영"]},{"name":"오성민","table":"4-4","side":"b","idx":4,"title":"신부 현수 부모님의 지인","label":"","mates":["조세계","조세훈"]},{"name":"서훈주","table":"4-4","side":"b","idx":5,"title":"신부 현수 부모님의 지인","label":"","mates":[]},{"name":"권하영","table":"4-5","side":"a","idx":0,"title":"신랑 정훈의 지인","label":"","mates":[]},{"name":"오선영","table":"4-5","side":"a","idx":1,"title":"신랑 정훈의 지인","label":"","mates":[]},{"name":"정수진","table":"4-5","side":"a","idx":2,"title":"신랑 정훈의 지인","label":"","mates":[]},{"name":"최한솔","table":"4-5","side":"a","idx":3,"title":"신랑 정훈의 지인","label":"","mates":[]},{"name":"이미현","table":"4-5","side":"b","idx":0,"title":"신랑 정훈의 친구","label":"","mates":[]},{"name":"방철우","table":"4-5","side":"b","idx":1,"title":"신랑 정훈의 지인","label":"","mates":[]},{"name":"장재호","table":"4-5","side":"b","idx":2,"title":"신랑 정훈의 지인","label":"","mates":[]},{"name":"강석희","table":"4-5","side":"b","idx":3,"title":"신랑 정훈의 지인","label":"","mates":[]}]};
+const T = {}; DATA.tables.forEach(t => T[t.id] = t);
+const G = {}; DATA.guests.forEach(g => G[g.name] = g);
+
+const SPACE = {
+  '1': {label:'1번 신랑 가족석', cls:'s1', color:'var(--c1)'},
+  '2': {label:'2번 신부 가족석', cls:'s2', color:'var(--c2)'},
+  '3': {label:'3번 지인석', cls:'s3', color:'var(--c3)'}
+};
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ---------------- 도면 ---------------- */
+const PLAN = `
+<rect x="1" y="1" width="695" height="874" fill="#FFFDF8" stroke="#8A836E" stroke-width="2"/>
+<g stroke="#8A836E" stroke-width="1.6" fill="none">
+  <path d="M1 233H297M297 85V100M297 216V291M297 503V543M297 543H1M297 600V640M297 700V876"/>
+  <path d="M399 85V100M399 213V306M399 340V876M399 233H696M399 458H696M399 543H696M399 639H696M399 758H696"/>
+  <path d="M252 85H437M252 0V85M437 0V85M644 0V233"/>
+</g>
+<rect x="74" y="10" width="113" height="25" rx="3" fill="#E8E1D0" stroke="#8A836E"/>
+<text x="130" y="27" font-size="12" text-anchor="middle" fill="#5B5749">피아노</text>
+<text x="345" y="48" font-size="19" text-anchor="middle" fill="#5B5749" font-family="Noto Serif KR">무대</text>
+<rect x="19" y="50" width="233" height="175" fill="#F3DDD3" opacity=".75"/>
+<rect x="455" y="31" width="180" height="192" fill="#C9D8DE" opacity=".8"/>
+<rect x="19" y="242" width="264" height="124" fill="#DCE9D2" opacity=".85"/>
+<rect x="19" y="376" width="264" height="147" fill="#CFE3CC" opacity=".85"/>
+<text x="548" y="352" font-size="15" text-anchor="middle" fill="#5B5749">하객 맞이</text>
+<text x="548" y="372" font-size="15" text-anchor="middle" fill="#5B5749">공간</text>
+<rect x="482" y="255" width="137" height="23" rx="3" fill="#E8E1D0" stroke="#8A836E"/>
+<text x="550" y="272" font-size="11" text-anchor="middle" fill="#5B5749">이벤트 부스</text>
+<rect x="667" y="292" width="26" height="111" rx="3" fill="#E8E1D0" stroke="#8A836E"/>
+<text x="548" y="505" font-size="15" text-anchor="middle" fill="#5B5749">축의대</text>
+<text x="348" y="400" font-size="14" fill="#B09A6E" text-anchor="middle" transform="rotate(90 348 400)" letter-spacing="6">버진로드</text>`;
+const TFILL = {'1':['#E7C9BC','#8A6A5A'], '2':['#A9BEC7','#5E7885'], '3':['#B2CCAE','#6C8559']};
+
+// 하객 맞이 공간(나) → 각 테이블 가는 길
+function routePts(id){
+  const S=[548,322], P1=[348,322];
+  const R = {
+    '1-2':[[348,150],[205,150]],
+    '1-1':[[348,150],[235,150],[235,48],[75,48],[75,58]],
+    '2-1':[[348,150],[448,150],[460,150]],
+    '2-2':[[348,150],[448,150],[448,20],[543,20],[543,34]],
+    '2-3':[[348,150],[448,150],[448,20],[607,20],[607,34]],
+    '3-1':[[348,304],[66,304],[66,294]],
+    '3-2':[[348,304],[193,304],[193,294]],
+    '3-3':[[348,332],[281,332]],
+    '4-1':[[348,423],[101,423],[101,411]],
+    '4-2':[[348,423],[230,423],[230,411]],
+    '4-3':[[348,453],[283,453]],
+    '4-4':[[348,480],[101,480],[101,488]],
+    '4-5':[[348,480],[230,480],[230,488]]
+  };
+  return [S,P1].concat(R[id]||[]);
+}
+function planSvg(hl){
+  let s = `<svg viewBox="0 0 697 560" preserveAspectRatio="xMidYMin meet" xmlns="http://www.w3.org/2000/svg">${PLAN}`;
+  DATA.tables.forEach(t=>{
+    const [x,y,w,h]=t.rect, f=TFILL[t.space];
+    s += `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="2" fill="${f[0]}" stroke="${f[1]}"/>`;
+  });
+  if(hl){
+    const t=T[hl], [x,y,w,h]=t.rect;
+    s += `<rect class="hl" x="${x-4}" y="${y-4}" width="${w+8}" height="${h+8}" rx="4" fill="none" stroke="#B5544A" stroke-width="5"/>`;
+    const pts=routePts(hl).map(p=>p.join(',')).join(' ');
+    s += `<polyline class="path" points="${pts}" fill="none" stroke="#B5544A" stroke-width="5" stroke-dasharray="10 10" stroke-linecap="round" stroke-linejoin="round"/>`;
+    s += `<circle cx="548" cy="322" r="12" fill="#2E2B24"/><text x="548" y="326" font-size="11" fill="#fff" text-anchor="middle">나</text>`;
+    const ly = t.space==='2' ? y+h+22 : y-10;
+    s += `<text x="${x+w/2}" y="${ly}" font-size="16" fill="#B5544A" font-weight="700" text-anchor="middle">내 자리</text>`;
+  }
+  // 터치 영역 (테이블 누르면 자리 상세)
+  DATA.tables.forEach(t=>{
+    const [x,y,w,h]=t.rect;
+    s += `<rect class="tbl-hit" data-table="${t.id}" x="${x-10}" y="${y-10}" width="${w+20}" height="${h+20}" fill="transparent"/>`;
+  });
+  return s+'</svg>';
+}
+
+/* ---------------- 화면 상태 ---------------- */
+const params = new URLSearchParams(location.search);
+const st = {tab:'seat', view:'home', who:null, table:null, sheet:null, q:''};
+const $view = document.getElementById('view');
+const $tab = document.getElementById('tabbar');
+const $call = document.getElementById('callwrap');
+const $ov = document.getElementById('overlay');
+
+function renderTabs(){
+  const items=[['seat','⌂','내 자리'],['order','◷','식순'],['story','♡','우리 이야기'],['info','ⓘ','안내']];
+  $tab.innerHTML = items.map(([k,i,l])=>`<button class="tab ${st.tab===k?'on':''}" data-tab="${k}"><i>${i}</i>${l}</button>`).join('');
+}
+function go(tab){ st.tab=tab; render(true); }
+function render(top){
+  renderTabs();
+  $call.innerHTML = '';
+  if(st.tab==='seat'){ renderSeat(); if(top) $view.scrollTop = 0; }
+  else if(st.tab==='order') renderOrder(false);
+  else if(st.tab==='story'){ renderStory(); if(top) $view.scrollTop = 0; }
+  else { renderInfo(); if(top) $view.scrollTop = 0; }
+  renderSheet();
+}
+
+/* ---- 내 자리 ---- */
+function matches(q){
+  q = q.replace(/\s+/g,'');
+  if(!q) return [];
+  const m = DATA.guests.filter(g=>g.name.includes(q));
+  m.sort((a,b)=> (b.name.startsWith(q)-a.name.startsWith(q)) || (a.name.indexOf(q)-b.name.indexOf(q)) || a.name.localeCompare(b.name,'ko'));
+  return m;
+}
+function hlName(n,q){
+  q=q.replace(/\s+/g,''); const i=n.indexOf(q);
+  if(i<0) return esc(n);
+  return esc(n.slice(0,i))+'<em>'+esc(q)+'</em>'+esc(n.slice(i+q.length));
+}
+function renderSeat(){
+  if(st.view==='result') return renderResult();
+  if(st.view==='table') return renderTable();
+  $view.innerHTML = `
+    <div style="padding-top:10px">
+      <p class="eyebrow">2026.11.28 · 12:00</p>
+      <h1 class="names">정훈<span class="heart">♥</span>현수</h1>
+      <p class="date">오늘 와주셔서 감사합니다</p>
+    </div>
+    <hr class="rule" style="margin:24px 0">
+    <p class="h2" style="text-align:center">내 자리 찾기</p>
+    <p class="lead" style="text-align:center">성함을 입력해 주세요.</p>
+    <form id="sf" autocomplete="off">
+      <div class="field"><input id="q" type="text" inputmode="text" enterkeyhint="search" placeholder="성함" value="${esc(st.q)}" autocomplete="off" autocapitalize="off" spellcheck="false"><button type="button" class="x" id="clr" aria-label="지우기" style="display:none">✕</button></div>
+      <div id="dyn"></div>
+    </form>`;
+  const inp = document.getElementById('q'), clr = document.getElementById('clr');
+  const update = () => {
+    const q = inp.value; st.q = q;
+    clr.style.display = q ? '' : 'none';
+    const m = matches(q);
+    let h = '';
+    if(q.trim()){
+      if(m.length) h += `<div class="sugg">${m.map(g=>`<button type="button" data-pick="${esc(g.name)}"><span>${hlName(g.name,q)}</span><small>선택 ›</small></button>`).join('')}</div>`;
+      h += `<p class="help">${m.length?'':'찾는 성함이 없어요.<br>'}찾는 이름이 없으면<br>입구 안내 데스크에 말씀해 주세요.<br><a href="tel:01091902699">또는 김현준 (신부 오빠) 010-9190-2699</a></p>`;
+    } else {
+      h += `<button class="btn" type="submit">자리 찾기</button>
+      <div class="menu">
+        <button type="button" data-go="pre"><b>식전 안내</b><span>함께해 주실 일</span></button>
+        <button type="button" data-go="order"><b>식순</b><span>오늘의 순서</span></button>
+        <button type="button" data-go="story"><b>우리 이야기</b><span>두 사람 소개</span></button>
+        <button type="button" data-go="info"><b>안내</b><span>식사 · 화장실 등</span></button>
+      </div>`;
+    }
+    document.getElementById('dyn').innerHTML = h;
+  };
+  inp.addEventListener('input', update);
+  clr.addEventListener('click', ()=>{ inp.value=''; update(); inp.focus(); });
+  document.getElementById('sf').addEventListener('submit', e=>{
+    e.preventDefault();
+    const m = matches(inp.value);
+    if(m.length===1) pick(m[0].name);
+    else if(!inp.value.trim()) inp.focus();
+  });
+  update();
+}
+function pick(name){ st.who=name; st.table=G[name].table; st.view='result'; st.q=''; render(true); }
+
+function renderResult(){
+  const g=G[st.who], t=T[g.table], sp=SPACE[t.space];
+  $view.innerHTML = `
+    <p class="greet">${esc(g.name)}님, 반갑습니다</p>
+    <p class="zone"><span style="color:${sp.color}">${sp.label}</span>에<br>앉으시면 돼요</p>
+    <div class="mapwrap">${planSvg(g.table)}</div>
+    <div class="legend"><span><i style="background:var(--z1);border-color:#D8B3A4"></i>1번 신랑 가족석</span><span><i style="background:var(--z2);border-color:#9DB3BC"></i>2번 신부 가족석</span><span><i style="background:var(--z32);border-color:#A9C7A4"></i>3번 지인석</span></div>
+    <button class="tapnote" data-table="${g.table}"><span class="finger">☝</span><span><b>내 테이블을 눌러</b><br>자세한 자리를 확인하세요</span></button>
+    <button class="link" id="again">다른 이름 찾기</button>`;
+  document.getElementById('again').onclick=()=>{ st.view='home'; st.who=null; render(true); };
+}
+function openTable(id){ st.table=id; st.view='table'; st.sheet=null; st.tab='seat'; render(true); }
+function seatBtn(n){
+  if(!n) return `<div class="seat empty">빈자리</div>`;
+  const me = n===st.who, sel = n===st.sheet && !me;
+  return `<button class="seat ${me?'me':''} ${sel?'sel':''}" data-person="${esc(n)}">${esc(n)}</button>`;
+}
+function renderTable(){
+  const t=T[st.table], sp=SPACE[t.space], mine = st.who && G[st.who].table===st.table;
+  let h = `<button class="back" id="bk">‹ ${st.who?'내 자리로':'처음으로'}</button>
+    <div class="thead"><span class="badge ${sp.cls}">${sp.label}</span><h2>${mine?'우리 테이블':'테이블'}</h2></div>
+    <p class="lead" style="margin:2px 0 0;font-size:13.5px">이름을 누르면 신랑·신부와의 관계가 나와요.</p>`;
+  if(t.orient==='v'){
+    h += `<div class="top"><span>◀ 버진로드 쪽</span><span>▲ 무대 쪽</span></div>
+      <div class="tbl"><div class="seats l">${t.a.map(n=>seatBtn(n)).join('')}</div><div class="bar"><span>테이블</span></div><div class="seats r">${t.b.map(n=>seatBtn(n)).join('')}</div></div>`;
+  } else {
+    const cols = t.a.length;
+    const row = arr => `<div class="hrow" style="grid-template-columns:repeat(${cols},1fr)">${arr.map(n=>seatBtn(n)).join('')}</div>`;
+    h += `<div class="top"><span></span><span>버진로드 쪽 ▶</span></div>${row(t.a)}<div class="hbar">테이블</div>${row(t.b)}`;
+  }
+  $view.innerHTML = h;
+  document.getElementById('bk').onclick=()=>{ st.view = st.who?'result':'home'; render(true); };
+}
+function renderSheet(){
+  if(!st.sheet){ $ov.innerHTML=''; return; }
+  const g=G[st.sheet];
+  $ov.innerHTML = `<div class="dim" id="dim"></div><div class="sheet"><div class="grab"></div>
+    <p class="who">${esc(g.name)}</p><p class="rel">${esc(g.title)}</p>
+    <dl class="kv">${g.label?`<dt>관계</dt><dd>${esc(g.label)}</dd>`:''}${g.mates.length?`<dt>일행</dt><dd>${g.mates.map(esc).join(' · ')}</dd>`:''}</dl>
+    <button class="ghost" id="cl">닫기</button></div>`;
+  document.getElementById('dim').onclick=closeSheet; document.getElementById('cl').onclick=closeSheet;
+}
+function closeSheet(){ st.sheet=null; if(st.view==='table') renderTable(); renderSheet(); }
+
+/* ---- 식순 ---- */
+const ORDER = [
+  {part:'식전 · 11:30', start:'11:30', end:'12:00', items:[
+    {t:'식전 1', n:'이야기 함에 넣기', d:'청첩장에 적어 오신 결혼생활의 지혜,<br>신혼생활의 로망을 각 함에 넣어 주세요.'},
+    {t:'식전 2', n:'무화과 나무 화분에 이름 쓰기', d:'서로 다른 두 사람이 새 가족이 되는 날,<br>함께해 주시는 분들을 기념하고 싶어요.'},
+    {t:'식전 3', n:'포토월에서 사진 찍기', d:'신랑 신부와 같이 찍어요.'}
+  ]},
+  {part:'1부 · 12:00', items:[
+    {t:'12:00', n:'신랑 · 신부 입장', d:'부모님 손을 잡고 들어와요.', start:'12:00', end:'12:10'},
+    {t:'12:10', n:'혼인 서약 · 가족 축사', d:'신랑 신부가 혼인 서약을 하고,<br>부모님께 축사를 들어요.', start:'12:10', end:'12:25'},
+    {t:'12:25', n:'가족 결합 세리머니', d:'두 가족이 하나로 뿌리내린다는 의미로,<br>신랑 신부 가족 대표분들이<br>무화과 나무에 흙과 물을 줍니다.', start:'12:25', end:'12:35'},
+    {t:'12:35', n:'사진 촬영 · 식사', d:'친척, 친구 순서로 사진을 찍고<br>12시 40분부터 식사해요.', start:'12:35', end:'13:00'}
+  ]},
+  {part:'2부 · 13:00', items:[
+    {t:'13:00', n:'신랑 · 신부의 수다 시간', d:'', start:'13:00', end:'15:00'}
+  ]}
+];
+const toMin = s => { const [h,m]=s.split(':').map(Number); return h*60+m; };
+function nowMin(){
+  const q = params.get('t');
+  if(q && /^\d{1,2}:\d{2}$/.test(q)) return toMin(q);
+  const d = new Date();
+  // 예식 당일(한국시간 2026-11-28)만 '지금' 표시
+  const kst = new Date(d.getTime() + (d.getTimezoneOffset()+540)*60000);
+  if(kst.getFullYear()!==2026 || kst.getMonth()!==10 || kst.getDate()!==28) return null;
+  return kst.getHours()*60 + kst.getMinutes();
+}
+function renderOrder(keep){
+  const now = nowMin();
+  const y = $view.scrollTop;
+  let h = `<p class="h2">오늘의 식순</p><p class="lead" style="margin-bottom:6px">시간은 조금 달라질 수 있어요.</p>`;
+  ORDER.forEach(sec=>{
+    const secStart = sec.start ? toMin(sec.start) : null, secEnd = sec.end ? toMin(sec.end) : null;
+    const secNow = secStart!=null && now!=null && now>=secStart && now<secEnd;
+    const secDone = secEnd!=null && now!=null && now>=secEnd;
+    h += `<div class="part" ${sec.part.startsWith('식전')?'id="pre"':''}>${sec.part}${secNow?'<span class="tag">지금</span>':''}</div><div class="tl">`;
+    sec.items.forEach(it=>{
+      let cls='it', tag='';
+      if(sec.start){ if(secDone) cls+=' done'; }
+      else if(now!=null){
+        const s=toMin(it.start), e=toMin(it.end);
+        if(now>=e) cls+=' done'; else if(now>=s){ cls+=' now'; tag='<span class="tag">지금</span>'; }
+      }
+      h += `<div class="${cls}"><div class="t">${it.t}${tag}</div><div class="n">${it.n}</div>${it.d?`<div class="d">${it.d}</div>`:''}</div>`;
+    });
+    h += '</div>';
+  });
+  $view.innerHTML = h;
+  if(keep){ $view.scrollTop = y; return; }
+  if(st.scrollPre){ st.scrollPre=false; $view.scrollTop=0; return; }
+  const target = $view.querySelector('.it.now') || $view.querySelector('.part .tag')?.parentElement;
+  $view.scrollTop = target ? Math.max(0, target.offsetTop - 90) : 0;
+}
+
+/* ---- 우리 이야기 ---- */
+const STORY = [
+  ['2020','first','50% 30%','같은 동아리에서 만났어요.<br>정훈이는 현수가 똘똘하고 귀여워서,<br>현수는 정훈이가 생각이 깊고<br>멋있어서 반했대요.'],
+  ['2021','y2021','50% 35%','대학생이라면 반지 한 번쯤<br>만들어서 끼잖아요~ 귀여운 경험이었어요.<br>이때 만든 반지를 무려 5년이나 꼈어요.'],
+  ['2022','y2022','50% 40%','첫 해외여행은 호주였어요.<br>가서 인종차별을 당해 주눅이 들었지만,<br>둘이 있으니 뭐든 금방 이겨내더라고요!'],
+  ['2023','y2023','75% 80%','대학교 CC라면 축제는 가줘야죠!<br>사람 많고 시끄러운 곳을<br>안 좋아하긴 하지만요...'],
+  ['2024','y2024','50% 50%','정훈이가 미역·다시마 양식 사업을<br>하려고 했을 때, 같이 노화도에 가서<br>어부분들과 일하며 현장을 배웠어요.<br>잊지 못할 재밌는 도전이었어요.'],
+  ['2025','y2025','50% 40%','일본은 둘 다 처음이었는데,<br>음식도 맛있고 둘러보기도 좋아서<br>다음에 또 가고 싶어졌어요.'],
+  ['2026','y2026','50% 40%','쉬는 날엔 그날 기분 따라<br>집, 카페, 도서관, 공원에서 개발을 해요.<br>뭐라도 하나 잘돼서 회사 그만두고<br>사업하고 싶다는 얘기를 자주 해요.'],
+  ['2026.11.28','wedding','50% 40%','어느덧 저희가 결혼을 하게 되었네요!<br>앞으로도 지금처럼 서로 응원하고,<br>같이 웃고 도전하면서 살겠습니다.<br>와주셔서 고맙습니다.']
+];
+function renderStory(){
+  $view.innerHTML = `<p class="h2">우리 이야기</p><p class="lead" style="margin-bottom:8px">현수와 정훈이는 이렇게 만나왔습니다.</p>
+  <div class="line">${STORY.map(([y,img,pos,txt])=>`<div class="yr"><div class="y">${y}</div><div class="ph" style="background-image:url(photos/${img}.jpg);background-position:${pos}"></div><div class="x">${txt}</div></div>`).join('')}</div>`;
+}
+
+/* ---- 안내 ---- */
+const VEG = ['구운 토마토 샐러드','특수야채','호박죽','대나무통밥','곤드레밥·영양찰밥','나박물김치','더덕구이','명이나물','떡','과일','비빔냉면','김부각·고추부각'];
+function renderInfo(){
+  $view.innerHTML = `<p class="h2">안내</p>
+  <div class="info"><div class="ic">🍽</div><div><b>식사 · 뷔페</b>
+    <p>사진 촬영 후 <strong>12시 40분</strong>부터 드세요.</p>
+    <div class="sorry"><b class="serif" style="font-weight:500">채식 메뉴</b><br><span style="color:var(--ink-soft);font-size:13.5px">선택지가 많지 않아 죄송합니다.<br>채식 메뉴에는 표기가 있습니다.</span>
+      <div class="veg">${VEG.map(v=>`<span>${v}</span>`).join('')}</div>
+      <div class="warn">※ 공식 비건 인증 매장은 아니에요.</div></div></div></div>
+  <div class="info"><div class="ic">🚻</div><div><b>화장실</b><p>식당을 나가셔서 <strong>왼편</strong>으로 돌면 있어요.</p></div></div>
+  <div class="info"><div class="ic">🅿</div><div><b>주차</b><p>오비즈타워 주차장 무료 이용</p></div></div>`;
+  $call.innerHTML = `<div class="callbar"><a class="call" href="tel:01091902699"><span>도움이 필요하세요?<br>김현준 (신부 오빠)</span><b>010-9190-2699</b></a></div>`;
+}
+
+/* ---------------- 이벤트 ---------------- */
+document.addEventListener('click', e=>{
+  const el = e.target.closest('[data-tab],[data-go],[data-pick],[data-table],[data-person]');
+  if(!el) return;
+  if(el.dataset.tab){ const k=el.dataset.tab; if(k==='seat' && st.tab==='seat'){ st.view = st.who?'result':'home'; st.sheet=null; } st.tab=k; render(true); return; }
+  if(el.dataset.go){ const k=el.dataset.go; if(k==='pre'){ st.tab='order'; st.scrollPre=true; render(); } else go(k); return; }
+  if(el.dataset.pick){ pick(el.dataset.pick); return; }
+  if(el.dataset.table){ openTable(el.dataset.table); return; }
+  if(el.dataset.person){ st.sheet=el.dataset.person; if(st.view==='table') renderTable(); renderSheet(); return; }
+});
+// ?n=이름 으로 바로 열기 (테스트·개별 링크용)
+const qn = params.get('n');
+if(qn && G[qn]){ st.who=qn; st.table=G[qn].table; st.view='result'; }
+const qt = params.get('tab'); if(qt && ['order','story','info'].includes(qt)) st.tab=qt;
+render(true);
+setInterval(()=>{ if(st.tab==='order') renderOrder(true); }, 30000);
+</script>
+</body>
+</html>
