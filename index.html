@@ -75,6 +75,7 @@
   .tapnote{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--paper-2);border:1px solid var(--gold);border-radius:12px;padding:12px 14px;font-size:15px;line-height:1.6;}
   .tapnote .finger{font-size:22px;color:var(--gold);}
   .tapnote b{font-family:'Noto Serif KR',serif;font-weight:500;}
+  .mine{margin-top:6px;padding:14px 12px 10px;background:var(--paper-2);border:1px solid var(--gold);border-radius:12px;}
   .link{display:block;margin:16px auto 0;font-size:13.5px;color:var(--ink-faint);text-decoration:underline;text-underline-offset:3px;}
   @keyframes pulse{0%,100%{opacity:.35}50%{opacity:1}}
   @keyframes dash{to{stroke-dashoffset:-20}}
@@ -273,7 +274,11 @@ let curNav = snap();
 function pushNav(){ const k = snap(); if(k!==curNav){ curNav=k; try{ history.pushState(JSON.parse(k),''); }catch(e){} } }
 window.addEventListener('popstate', e=>{
   const a = e.state; if(!Array.isArray(a)) return;
+  const prev = JSON.parse(curNav);
+  const sheetOnly = prev.every((v,i)=> i===4 || v===a[i]);
   [st.tab, st.view, st.who, st.table, st.sheet, st.pre] = a; st.q=''; curNav = snap();
+  // 이름 창만 열고 닫은 경우: 스크롤 위치를 유지한 채 창만 갱신
+  if(sheetOnly){ markSel(); renderSheet(); return; }
   render(true);
 });
 
@@ -341,11 +346,15 @@ function renderResult(){
   $view.innerHTML = `
     <p class="greet">${esc(g.name)}님, 반갑습니다</p>
     <p class="zone"><span style="color:${sp.color}">${sp.label}</span>에<br>앉으시면 돼요</p>
-    <p class="maphint"><span class="finger">☝</span>테이블을 누르면 누가 앉는지 볼 수 있어요</p>
     <div class="mapwrap">${planSvg(g.table)}</div>
     <div class="legend"><span><i style="background:var(--z1);border-color:#D8B3A4"></i>1번 신랑 가족석</span><span><i style="background:var(--z2);border-color:#9DB3BC"></i>2번 신부 가족석</span><span><i style="background:var(--z32);border-color:#A9C7A4"></i>3번 지인석</span></div>
-    <button class="tapnote" data-table="${g.table}"><span class="finger">☝</span><span><b>내 테이블에 누가 앉는지 궁금하세요?</b><br>눌러서 좌석 배치도를 확인해 보세요</span></button>
-    <button class="link" id="again">다른 이름 찾기</button>`;
+    <div class="mine">
+      <div class="thead"><span class="badge ${sp.cls}">${sp.label}</span><h2>내 자리</h2></div>
+      <p class="lead" style="margin:2px 0 0;font-size:13.5px"><b style="color:var(--gold);font-weight:500">금색</b>이 내 자리예요. 이름을 누르면 관계가 나와요.</p>
+      ${tableChart(g.table)}
+    </div>
+    <p class="maphint" style="margin-top:14px"><span class="finger">☝</span>배치도에서 다른 테이블을 누르면<br>누가 앉는지 볼 수 있어요</p>
+    <button class="link" id="again" style="margin-top:6px">다른 이름 찾기</button>`;
   document.getElementById('again').onclick=()=>{ st.view='home'; st.who=null; render(true); };
 }
 function openTable(id){ st.table=id; st.view='table'; st.sheet=null; st.tab='seat'; render(true); }
@@ -354,20 +363,26 @@ function seatBtn(n){
   const me = n===st.who, sel = n===st.sheet && !me;
   return `<button class="seat ${me?'me':''} ${sel?'sel':''}" data-person="${esc(n)}">${esc(n)}</button>`;
 }
+// 좌석 배치도 (결과 화면 · 테이블 화면 공용)
+function tableChart(id){
+  const t=T[id];
+  if(t.orient==='v'){
+    return `<div class="top"><span>◀ 버진로드 쪽</span><span>▲ 무대 쪽</span></div>
+      <div class="tbl"><div class="seats l">${t.a.map(n=>seatBtn(n)).join('')}</div><div class="bar"><span>테이블</span></div><div class="seats r">${t.b.map(n=>seatBtn(n)).join('')}</div></div>`;
+  }
+  const cols = t.a.length;
+  const row = arr => `<div class="hrow" style="grid-template-columns:repeat(${cols},1fr)">${arr.map(n=>seatBtn(n)).join('')}</div>`;
+  return `<div class="top"><span></span><span>버진로드 쪽 ▶</span></div>${row(t.a)}<div class="hbar">테이블</div>${row(t.b)}`;
+}
+// 이름 창이 열리고 닫힐 때 선택 표시만 갱신 (화면을 다시 그리지 않음)
+function markSel(){
+  document.querySelectorAll('.seat[data-person]').forEach(b=>b.classList.toggle('sel', b.dataset.person===st.sheet && b.dataset.person!==st.who));
+}
 function renderTable(){
   const t=T[st.table], sp=SPACE[t.space], mine = st.who && G[st.who].table===st.table;
-  let h = `<button class="back" id="bk">‹ ${st.who?'내 자리로':'처음으로'}</button>
+  $view.innerHTML = `<button class="back" id="bk">‹ ${st.who?'내 자리로':'처음으로'}</button>
     <div class="thead"><span class="badge ${sp.cls}">${sp.label}</span><h2>${mine?'우리 테이블':'테이블'}</h2></div>
-    <p class="lead" style="margin:2px 0 0;font-size:13.5px">이름을 누르면 신랑·신부와의 관계가 나와요.</p>`;
-  if(t.orient==='v'){
-    h += `<div class="top"><span>◀ 버진로드 쪽</span><span>▲ 무대 쪽</span></div>
-      <div class="tbl"><div class="seats l">${t.a.map(n=>seatBtn(n)).join('')}</div><div class="bar"><span>테이블</span></div><div class="seats r">${t.b.map(n=>seatBtn(n)).join('')}</div></div>`;
-  } else {
-    const cols = t.a.length;
-    const row = arr => `<div class="hrow" style="grid-template-columns:repeat(${cols},1fr)">${arr.map(n=>seatBtn(n)).join('')}</div>`;
-    h += `<div class="top"><span></span><span>버진로드 쪽 ▶</span></div>${row(t.a)}<div class="hbar">테이블</div>${row(t.b)}`;
-  }
-  $view.innerHTML = h;
+    <p class="lead" style="margin:2px 0 0;font-size:13.5px">이름을 누르면 신랑·신부와의 관계가 나와요.</p>${tableChart(st.table)}`;
   document.getElementById('bk').onclick=()=>{ st.view = st.who?'result':'home'; render(true); };
 }
 function renderSheet(){
@@ -379,7 +394,7 @@ function renderSheet(){
     <button class="ghost" id="cl">닫기</button></div>`;
   document.getElementById('dim').onclick=closeSheet; document.getElementById('cl').onclick=closeSheet;
 }
-function closeSheet(){ if(history.state&&history.state[4]){ history.back(); return; } st.sheet=null; if(st.view==='table') renderTable(); renderSheet(); }
+function closeSheet(){ if(history.state&&history.state[4]){ history.back(); return; } st.sheet=null; markSel(); renderSheet(); }
 
 /* ---- 식순 ---- */
 const ORDER = [
@@ -479,7 +494,7 @@ document.addEventListener('click', e=>{
   if(el.dataset.go){ const k=el.dataset.go; if(k==='pre'){ st.tab='order'; st.pre=true; render(true); } else { st.pre=false; go(k); } return; }
   if(el.dataset.pick){ pick(el.dataset.pick); return; }
   if(el.dataset.table){ openTable(el.dataset.table); return; }
-  if(el.dataset.person){ st.sheet=el.dataset.person; if(st.view==='table') renderTable(); renderSheet(); pushNav(); return; }
+  if(el.dataset.person){ st.sheet=el.dataset.person; markSel(); renderSheet(); pushNav(); return; }
 });
 // ?n=이름 으로 바로 열기 (테스트·개별 링크용)
 const qn = params.get('n');
